@@ -4,7 +4,11 @@ A package for working w/ Amazon Flexible Payments (also works for Amazon Simple 
 
 ## Install
 
-Normal bundle install.
+In your ``application/bundles.php`` file, add the following:
+
+```
+'amazon_fps' => array('auto' => true),
+```
 
 ### Configuration
 
@@ -20,7 +24,7 @@ Use desired method name and pass necessary params.  See the [documentation](http
 
 ```php
 $result = AmazonFPS::get_account_activity(array(
-
+    'foo' => 'bar',
 ));
 ```
 
@@ -32,21 +36,7 @@ Make Amazon Simple Payments buttons, passing the necessary parameters.  See the 
 
 ```php
 echo AmazonFPS::button(array(
-    #'abandonUrl' => '',
     'amount' => 'USD 20',
-    #'cobrandingStyle' => '',
-    #'collectShippingAddress' => '',
-    #'description' => 'Annual One-Time Subscription Fee',
-    'immediateReturn' => 1,
-    #'ipnUrl' => '',
-    #'noOfPromotionTransactions' => '', // no idea what this is
-    'processImmediate' => 1,
-    #'promotionAmount' => '',
-    #'recurringFrequency' => '1 month',
-    #'recurringStartDate' => '',
-    'referenceId' => md5(SignupForm::populate('email')), // whatever you want
-    #'returnUrl' => '',
-    #'subscriptionPeriod' => 'forever',
 ));
 ```
 
