@@ -5,7 +5,7 @@
  *
  * @package    AmazonFPS
  * @author     Scott Travis <scott.w.travis@gmail.com>
- * @link       http://github.com/swt83/laravel-amazonfps
+ * @link       http://github.com/swt83/laravel-amazon_fps
  * @license    MIT License
  */
 
@@ -21,12 +21,12 @@ class AmazonFPS {
     public static function __callStatic($method, $args)
     {
         // set endpoint
-        $endpoint = Config::get('amazonfps.production_mode') ? 'https://fps.amazonaws.com' : 'https://fps.sandbox.amazonaws.com';
+        $endpoint = Config::get('amazon_fps.production_mode') ? 'https://fps.amazonaws.com' : 'https://fps.sandbox.amazonaws.com';
 
         // build initial params array
         $params = array(
             'Action' => static::camelcase($method),
-            'AWSAccessKeyId' => Config::get('amazonfps.access_key'),
+            'AWSAccessKeyId' => Config::get('amazon_fps.access_key'),
             'SignatureVersion' => '2',
             'SignatureMethod' => 'HmacSHA256',
             'Timestamp' => static::timestamp(),
@@ -131,7 +131,7 @@ class AmazonFPS {
         $string = 'POST' . "\n" . $url . "\n" . $uri . "\n" . $string;
         
         // load key
-        $key = Config::get('amazonfps.secret_key');
+        $key = Config::get('amazon_fps.secret_key');
 
         // encrypt
         $string = hash_hmac('sha256', $string, $key, true);
@@ -164,11 +164,11 @@ class AmazonFPS {
     public static function button($params, $submit_button_text = 'Make Payment')
     {
         // set endpoint
-        $endpoint = Config::get('amazonfps.production_mode') ? 'https://authorize.payments.amazon.com/pba/paypipeline' : 'https://authorize.payments-sandbox.amazon.com/pba/paypipeline';
+        $endpoint = Config::get('amazon_fps.production_mode') ? 'https://authorize.payments.amazon.com/pba/paypipeline' : 'https://authorize.payments-sandbox.amazon.com/pba/paypipeline';
 
         // add access values to array
-        $params['accessKey'] = Config::get('amazonfps.access_key');
-        $params['amazonPaymentsAccountId'] = Config::get('amazonfps.account_id');
+        $params['accessKey'] = Config::get('amazon_fps.access_key');
+        $params['amazonPaymentsAccountId'] = Config::get('amazon_fps.account_id');
 
         // add signature values to array
         $params['signatureVersion'] = 2;
@@ -178,7 +178,7 @@ class AmazonFPS {
         $params['signature'] = static::sign($params, $endpoint);
 
         // build button
-        $html = View::make('amazonfps::button')
+        $html = View::make('amazon_fps::button')
             ->with('endpoint', $endpoint)
             ->with('params', $params)
             ->with('submit', $submit_button_text);

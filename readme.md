@@ -12,7 +12,7 @@ In your ``application/bundles.php`` file, add the following:
 
 ### Configuration
 
-Copy the sample config to ``application/config/amazonfps.php`` and input the necessary information.
+Copy the sample config to ``application/config/amazon_fps.php`` and input the necessary information.
 
 ### Dependencies
 
